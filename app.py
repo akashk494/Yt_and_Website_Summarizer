@@ -5,7 +5,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from youtube_transcript_api import YouTubeTranscriptApi
-from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_community.document_loaders import UnstructuredURLLoader, WebBaseLoader
 
 st.set_page_config(
     page_title="Youtube & Website Summarizer",
@@ -45,7 +45,7 @@ prompt = PromptTemplate.from_template(
 
 if st.button("Summarize"):
     if not hf_api_key.strip():
-        st.error("Please provide your GROQ API Key.")
+        st.error("Please provide your Hugging Face API Key.")
         st.stop()
 
     if not generic_url.strip():
@@ -93,7 +93,8 @@ if st.button("Summarize"):
         ## Website
         else:
             st.info("Website Detected")
-            loader = UnstructuredURLLoader(urls=[generic_url])
+            # loader = UnstructuredURLLoader(urls=[generic_url])
+            loader = WebBaseLoader(generic_url)
             docs = loader.load()
             text = "\n\n".join(
                 doc.page_content for doc in docs
