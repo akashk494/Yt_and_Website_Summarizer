@@ -1,0 +1,8 @@
+streamlit
+validators
+langchain-huggingface
+langchain-core
+langchain-text-splitters
+langchain-community
+youtube-transcript-api
+unstructured
